@@ -6,18 +6,23 @@ import SignIn from './pages/SignIn/SignIn';
 import SignUp from './pages/SignUp/SignUp';
 import Form from './pages/Form/Form';
 import Profile from './pages/Profile/Profile';
+import File from './pages/File/File';
+import Transcribe from './pages/Transcribe/Transcribe';
 
 function App() {
   return (
     <>
-    <NavBar />
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/signin" element={<SignIn />} />
-      <Route path="/form" element={<Form />} />
-      <Route path="/profile" element={<Profile />} />
-    </Routes>
+
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/form" element={<Form />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/file" element={<File />} />
+        <Route path="/transcribe" element={<Transcribe />} />
+      </Routes>
     </>
   );
 }

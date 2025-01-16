@@ -1,0 +1,119 @@
+body {
+  background-color: #f0f8ff; /* Alice blue (lightest blue) */
+  margin: 0;
+  font-family: 'Arial', sans-serif; /* Apply font */
+  height: 100vh; /* Full height */
+}
+.home-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content from the top */
+  align-items: center; /* Center horizontally */
+  padding: 2rem;
+  padding-bottom: 6rem; /* Additional space at the bottom */
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: 'Arial', sans-serif; /* Clean font family */
+}
+
+/* Heading styles */
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+/* Styling for text with blue color */
+.blue-text {
+  color: #1D4ED8; /* Blue color */
+}
+
+/* Styling for arrows */
+.blue-arrow {
+  color: #60A5FA; /* Light blue color */
+}
+
+/* Record button container */
+.record {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;
+  margin-top: 2rem; /* Space between text and button */
+  width: 100%; /* Ensure the container spans the full width */
+}
+
+/* Record button styling */
+.record button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #007BFF;
+  padding: 12px 20px;
+  border-radius: 50px;
+  color: white;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.3);
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.record button i {
+  font-size: 1.5rem;
+  margin-left: 8px;
+}
+
+.record button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* File upload text */
+.upload-text {
+  font-size: 1rem;
+  margin-top: 2rem;
+  color: #333;
+}
+
+.upload-label {
+  font-weight: bold;
+  color: #007BFF;
+  cursor: pointer;
+}
+
+.upload-label:hover {
+  text-decoration: underline;
+}
+
+.upload-label .hidden {
+  display: none; /* Hide file input */
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .home-main {
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  .record button {
+    padding: 10px 16px;
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,134 @@
+/* Container styling */
+.signin-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f9fafb;
+  padding: 1rem;
+}
+
+/* Card styling */
+.signin-card {
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Title */
+.signin-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #111827;
+}
+
+/* Alert styles */
+.alert {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.alert.success {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.alert.error {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Input styling */
+.signin-input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.signin-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+/* Button styling */
+.signin-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #3b82f6;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signin-button:disabled {
+  background-color: #93c5fd;
+  cursor: not-allowed;
+}
+
+.signin-button:hover:enabled {
+  background-color: #2563eb;
+}
+
+/* Google button styling */
+.google-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #ea4335;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.google-button:disabled {
+  background-color: #fca5a5;
+  cursor: not-allowed;
+}
+
+.google-button:hover:enabled {
+  background-color: #d32f2f;
+}
+
+/* Divider */
+.divider {
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  height: 1px;
+  width: 40%;
+  background: #d1d5db;
+  position: absolute;
+  top: 50%;
+}
+
+.divider::before {
+  left: 0;
+}
+
+.divider::after {
+  right: 0;
+}

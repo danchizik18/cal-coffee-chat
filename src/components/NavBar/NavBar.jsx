@@ -4,21 +4,21 @@ import { Menu } from "antd";
 import { auth } from "../../config/firebase";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-
+import "./NavBar.css"; // Import the updated CSS file
 
 const NavBar = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
+  const goHome = () => {
+    navigate('/');
+  }
 
-  // Set up auth state listener on mount and cleanup on unmount
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(setUser);
-    return () => unsubscribe(); // Clean up the listener on unmount
+    return () => unsubscribe();
   }, []);
 
-
-  // Handle sign out
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -29,36 +29,48 @@ const NavBar = () => {
     }
   };
 
-
   return (
-    <Menu mode="horizontal" theme="light">
-      {/* Only show Sign In and Sign Up links if the user is not logged in */}
-      {!user && (
-        <>
-          <Menu.Item key="signin">
-            <Link to="/signin">Sign In</Link>
-          </Menu.Item>
-          <Menu.Item key="signup">
-            <Link to="/signup">Sign Up</Link>
-          </Menu.Item>
-        </>
-      )}
+    <div className="navbar-container">
+      <Menu mode="horizontal" theme="light" className="nav-menu">
+        <Menu.Item key="home">
+          <Link to="/">Home</Link>
+        </Menu.Item>
 
-      {/* Only show Log Out button if the user is logged in */}
-      {user && (
-        <>
+        {!user && (
+          <>
+            <Menu.Item key="signin">
+              <Link to="/signin">Sign In</Link>
+            </Menu.Item>
+            <Menu.Item key="signup">
+              <Link to="/signup">Sign Up</Link>
+            </Menu.Item>
+          </>
+        )}
 
-          <Menu.Item key="logout" onClick={handleLogout}>
-            Log Out
-          </Menu.Item>
-          <Menu.Item key="profile">
-          <Link to="/profile">Profile</Link>
-          </Menu.Item>
-        </>
-      )}
-    </Menu>
+        {user && (
+          <>
+            <Menu.Item key="logout" onClick={handleLogout}>
+              Log Out
+            </Menu.Item>
+            <Menu.Item key="profile">
+              <Link to="/profile">Profile</Link>
+            </Menu.Item>
+            <Menu.Item key="file">
+              <Link to="/file">Files</Link>
+            </Menu.Item>
+          </>
+        )}
+
+        {/* Add "New" button as part of the Menu */}
+        <Menu.Item key="new" className="new-button">
+          <button className="new-btn" onClick = {goHome}>
+            <i className="fa-solid fa-plus"></i>
+            <span>New</span>
+          </button>
+        </Menu.Item>
+      </Menu>
+    </div>
   );
 };
-
 
 export default NavBar;

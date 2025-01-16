@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import { Menu } from "antd";
 import { auth } from "../../config/firebase";
 import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 
 const NavBar = () => {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
 
   // Set up auth state listener on mount and cleanup on unmount
@@ -21,6 +23,7 @@ const NavBar = () => {
     try {
       await signOut(auth);
       console.log("User logged out successfully");
+      navigate("/");
     } catch (error) {
       console.error("Error logging out:", error.message);
     }
@@ -29,19 +32,29 @@ const NavBar = () => {
 
   return (
     <Menu mode="horizontal" theme="light">
-      <Menu.Item key="signin">
-        <Link to="/signin">Sign In</Link>
-      </Menu.Item>
-      <Menu.Item key="signup">
-        <Link to="/signup">Sign Up</Link>
-      </Menu.Item>
+      {/* Only show Sign In and Sign Up links if the user is not logged in */}
+      {!user && (
+        <>
+          <Menu.Item key="signin">
+            <Link to="/signin">Sign In</Link>
+          </Menu.Item>
+          <Menu.Item key="signup">
+            <Link to="/signup">Sign Up</Link>
+          </Menu.Item>
+        </>
+      )}
 
-
-      {/* Render Log Out button only if user is logged in */}
+      {/* Only show Log Out button if the user is logged in */}
       {user && (
-        <Menu.Item key="logout" onClick={handleLogout}>
-          Log Out
-        </Menu.Item>
+        <>
+
+          <Menu.Item key="logout" onClick={handleLogout}>
+            Log Out
+          </Menu.Item>
+          <Menu.Item key="profile">
+          <Link to="/profile">Profile</Link>
+          </Menu.Item>
+        </>
       )}
     </Menu>
   );

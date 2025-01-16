@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { auth } from "../../config/firebase"; // Make sure 'auth' is imported correctly from firebase
+import { auth } from "../../config/firebase"; // Firebase Auth
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Input, Button, Space, Typography, message } from "antd";
 import { useNavigate } from "react-router-dom";
+import { db } from "../../config/firebase"; 
+import { collection, addDoc } from "firebase/firestore"; 
 
 const { Title } = Typography;
 
@@ -12,15 +14,18 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+
   // Function to sign up with email and password
   const handleSignUp = async () => {
     setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(
-        auth, // Use 'auth' imported from firebase
-        email, // Use state variable directly instead of 'values.email'
-        password // Use state variable directly instead of 'values.password'
+        auth, 
+        email, 
+        password
       );
+
+      
       message.success("Account created successfully!");
       navigate("/form"); // Navigate to '/form' after successful sign-up
     } catch (error) {

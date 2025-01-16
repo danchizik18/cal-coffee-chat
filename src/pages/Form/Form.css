@@ -1,0 +1,107 @@
+/* Form.css */
+
+/* Overall form container */
+.ant-form {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #f1f7fc; /* Soft light background */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Form item spacing */
+.ant-form-item {
+  margin-bottom: 24px;
+}
+
+/* Label styling */
+.ant-form-item-label > label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #3b3b3b; /* Dark gray */
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Input fields styling */
+.ant-input, .ant-input-number, .ant-checkbox-wrapper {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #d9d9d9;
+  transition: border-color 0.3s ease;
+  background-color: #ffffff;
+}
+
+/* Input fields focus state */
+.ant-input:focus, .ant-input-number-input:focus {
+  border-color: #0099cc; /* Bright blue for focus */
+  box-shadow: 0 0 0 2px rgba(0, 153, 204, 0.2);
+}
+
+/* Button styling */
+.ant-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  background-color: #ff7043; /* Vibrant orange */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+/* Button hover and active state */
+.ant-btn:hover {
+  background-color: #ff5722; /* Darker orange */
+  color: white;
+}
+
+/* Loading button state */
+.ant-btn[loading] {
+  background-color: #ffab91; /* Lighter orange */
+  color: white;
+  border-color: #ffab91;
+}
+
+/* Checkbox label styling */
+.ant-checkbox-wrapper {
+  font-size: 14px;
+  color: #555;
+  margin-top: 8px;
+}
+
+/* Error message styling */
+.ant-form-item-explain-error {
+  font-size: 12px;
+  color: #f5222d; /* Red for error */
+  margin-top: 8px;
+}
+
+/* Add some spacing between form elements */
+.ant-form-item {
+  margin-bottom: 20px;
+}
+
+/* Success message styling */
+.ant-form-item-explain {
+  font-size: 12px;
+  color: #4CAF50; /* Green for success */
+  margin-top: 8px;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 576px) {
+  .ant-form {
+    padding: 20px;
+    width: 90%;
+  }
+  
+  .ant-btn {
+    font-size: 14px;
+  }
+}

@@ -1,16 +1,37 @@
+/* index.css */
 
-
+/* Base Font and Typography */
 * {
   font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-h1,
-h2,
-h3,
-.bold {
+/* Headings Font Style */
+h1, h2, h3, .bold {
   font-family: 'Poppins', sans-serif;
 }
 
+/* Link Style */
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: #0056b3;
+}
+
+/* Buttons */
+button {
+  font-family: 'Open Sans', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Shadows and Special Buttons */
 .blueShadow {
   box-shadow: 3px 3px 0 0 #93c5fd;
 }
@@ -18,13 +39,14 @@ h3,
 .specialBtn {
   background: white;
   box-shadow: 0px 14px 55px rgba(96, 165, 255, 0.35);
-  transition-duration: 200ms;
+  transition: opacity 0.2s ease;
 }
 
 .specialBtn:hover {
   opacity: 0.8;
 }
 
+/* Loading Animations */
 .loading {
   animation: width 5s linear infinite;
   margin-right: auto;
@@ -38,3 +60,22 @@ h3,
   animation-delay: -2s;
 }
 
+/* Primary Colors */
+:root {
+  --primary: #003262;
+  --secondary: #FDB515;
+  --background: #F3F4F6;
+  --text-dark: #333333;
+  --text-light: #FFFFFF;
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}

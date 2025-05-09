@@ -1,51 +1,51 @@
-/* Position the navbar container */
 .navbar-container {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Ensure space between items */
-  padding: 1rem;
+  justify-content: space-between;
+  padding: 15px 30px;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #E0E0E0;
 }
 
-/* Style the menu */
+.navbar-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #003262;
+}
+
 .nav-menu {
   display: flex;
-  flex: 1;
-  justify-content: flex-start; /* Align menu items to the left */
+  gap: 20px;
+  font-size: 16px;
+  font-weight: 500;
 }
 
-/* Add margin-left: auto to push the "New" button to the right */
-.new-button {
-  margin-left: auto; /* Push the "New" button to the right */
-  padding-top: 4px;  /* Move the button down a little */
+.nav-menu a {
+  color: #003262;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-/* Clean and modern "New" button style */
-.new-btn {
-  background-color: #007bff;
-  color: white;
+.nav-menu a:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+.nav-menu button {
+  background: none;
   border: none;
-  padding: 8px 16px;
-  border-radius: 5px; /* Rounded corners */
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  color: #003262;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
-.new-btn i {
-  font-size: 18px; /* Adjust icon size */
+.nav-menu button:hover {
+  text-decoration: underline;
+  color: #0056b3;
 }
 
-.new-btn:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-}
-
-.new-btn span {
-  margin: 0;
-}
-
-.new-btn:focus {
-  outline: none; /* Remove focus outline */
+.nav-menu a.active {
+  font-weight: bold;
+  color: #FDB515;
 }

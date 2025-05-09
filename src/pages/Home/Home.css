@@ -1,119 +1,88 @@
-body {
-  background-color: #f0f8ff; /* Alice blue (lightest blue) */
-  margin: 0;
-  font-family: 'Arial', sans-serif; /* Apply font */
-  height: 100vh; /* Full height */
+.home-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  position: relative;
 }
-.home-main {
+
+.home-header {
+  background-color: #003262;
+  color: #FFFFFF;
+  padding: 60px 20px;
+  border-radius: 15px;
+  position: relative;
+}
+
+.oski-icon {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 100px;
+  height: 100px;
+  opacity: 0.8;
+}
+
+.home-title {
+  font-size: 42px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.home-subtitle {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.cta-button, .cta-outline {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.cta-button {
+  background-color: #FDB515;
+  color: #003262;
+}
+
+.cta-outline {
+  background: transparent;
+  border: 2px solid #FFFFFF;
+  color: #FFFFFF;
+}
+
+.cta-button:hover, .cta-outline:hover {
+  transform: scale(1.05);
+}
+
+.home-about {
+  background-color: #F3F4F6;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align content from the top */
-  align-items: center; /* Center horizontally */
-  padding: 2rem;
-  padding-bottom: 6rem; /* Additional space at the bottom */
-  max-width: 1000px;
-  margin: 0 auto;
-  text-align: center;
-  font-family: 'Arial', sans-serif; /* Clean font family */
-}
-
-/* Heading styles */
-h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 1rem;
-}
-
-h3 {
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: #333;
-  margin-bottom: 2rem;
-}
-
-/* Styling for text with blue color */
-.blue-text {
-  color: #1D4ED8; /* Blue color */
-}
-
-/* Styling for arrows */
-.blue-arrow {
-  color: #60A5FA; /* Light blue color */
-}
-
-/* Record button container */
-.record {
-  display: flex;
-  justify-content: center; /* Center horizontally */
   align-items: center;
-  margin-top: 2rem; /* Space between text and button */
-  width: 100%; /* Ensure the container spans the full width */
 }
 
-/* Record button styling */
-.record button {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #007BFF;
-  padding: 12px 20px;
-  border-radius: 50px;
-  color: white;
-  border: none;
-  font-size: 1.1rem;
-  cursor: pointer;
-  box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.3);
-  transition: transform 0.2s ease, background-color 0.3s ease;
-}
-
-.record button i {
-  font-size: 1.5rem;
-  margin-left: 8px;
-}
-
-.record button:hover {
-  background-color: #0056b3;
-  transform: scale(1.05); /* Slightly enlarge on hover */
-}
-
-/* File upload text */
-.upload-text {
-  font-size: 1rem;
-  margin-top: 2rem;
-  color: #333;
-}
-
-.upload-label {
+.home-about h2 {
+  font-size: 26px;
   font-weight: bold;
-  color: #007BFF;
-  cursor: pointer;
+  color: #003262;
 }
 
-.upload-label:hover {
-  text-decoration: underline;
-}
-
-.upload-label .hidden {
-  display: none; /* Hide file input */
-}
-
-/* Responsiveness */
-@media (max-width: 768px) {
-  .home-main {
-    padding: 1.5rem;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
-
-  h3 {
-    font-size: 1rem;
-  }
-
-  .record button {
-    padding: 10px 16px;
-    font-size: 1rem;
-  }
+.home-about p {
+  font-size: 18px;
+  color: #555555;
 }

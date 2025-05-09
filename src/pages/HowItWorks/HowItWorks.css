@@ -1,0 +1,91 @@
+.how-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.how-header {
+  position: relative;
+  padding: 20px;
+}
+
+.oski-icon {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 100px;
+  height: 100px;
+  opacity: 0.8;
+}
+
+.steps-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.step {
+  background-color: #F3F4F6;
+  padding: 15px 20px;
+  border-radius: 12px;
+  width: 45%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.step:hover {
+  transform: translateY(-5px);
+}
+
+.step h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #003262;
+}
+
+.step p {
+  font-size: 16px;
+  color: #555555;
+}
+
+.benefits-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.benefit {
+  flex: 1 1 45%;
+  background: #e7f3ff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.benefit h3 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #003262;
+}
+
+.benefit ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.benefit ul li::before {
+  content: '✔️';
+  margin-right: 10px;
+  color: #FDB515;
+}
+
+.benefit ul li {
+  font-size: 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}

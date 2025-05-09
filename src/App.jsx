@@ -1,3 +1,4 @@
+// App.jsx
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
@@ -6,13 +7,13 @@ import SignIn from './pages/SignIn/SignIn';
 import SignUp from './pages/SignUp/SignUp';
 import Form from './pages/Form/Form';
 import Profile from './pages/Profile/Profile';
-import File from './pages/File/File';
-import Transcribe from './pages/Transcribe/Transcribe';
+import About from './pages/About/About';
+import HowItWorks from './pages/HowItWorks/HowItWorks';
+import Verification from './pages/Verification/Verification';
 
 function App() {
   return (
     <>
-
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -20,8 +21,9 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/form" element={<Form />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/file" element={<File />} />
-        <Route path="/transcribe" element={<Transcribe />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/how-it-works" element={<HowItWorks />} />
+        <Route path="/verification" element={<Verification />} />
       </Routes>
     </>
   );

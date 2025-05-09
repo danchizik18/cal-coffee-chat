@@ -1,91 +1,48 @@
+// SignIn.jsx
 import React, { useState } from "react";
-import { auth, googleAuthProvider } from "../../config/firebase";
-import {
-  signInWithEmailAndPassword,
-  signInWithPopup,
-} from "firebase/auth";
-import "./SignIn.css";
+import { auth } from "../../config/firebase";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { message } from "antd";
+import "./SignIn.css";
+import { Shield } from "lucide-react";
 
-function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const SignIn = () => {
   const [loading, setLoading] = useState(false);
-  const [alert, setAlert] = useState({ message: "", type: "" });
   const navigate = useNavigate();
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
+    const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, googleAuthProvider);
-      setAlert({ message: "Google Sign-In Successful!", type: "success" });
-      navigate('/profile');
+      await signInWithPopup(auth, provider);
+      message.success("Signed in with Google successfully!");
+      navigate("/dashboard");
     } catch (error) {
-      setAlert({ message: error.message, type: "error" });
+      message.error("Google Sign-In Error: " + error.message);
     } finally {
       setLoading(false);
-
     }
   };
 
-  const handleEmailSignIn = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      setAlert({ message: "Sign-In Successful!", type: "success" });
-      navigate('/profile');
-    } catch (error) {
-      setAlert({ message: error.message, type: "error" });
-    } finally {
-      setLoading(false);
-
-    }
+  const handleCalNetSignIn = () => {
+    // Redirect to CalNet Sign-In (Will configure SAML in Firebase later)
+    message.info("CalNet Sign-In coming soon.");
   };
 
   return (
     <div className="signin-container">
-      <div className="signin-card">
-        <h1 className="signin-title">Sign In</h1>
-        {alert.message && (
-          <div className={`alert ${alert.type}`}>{alert.message}</div>
-        )}
-        <form className="signin-form" onSubmit={handleEmailSignIn}>
-          <input
-            type="email"
-            className="signin-input"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            className="signin-input"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button
-            type="submit"
-            className="signin-button"
-            disabled={loading}
-          >
-            {loading ? "Loading..." : "Sign In"}
-          </button>
-        </form>
-        <div className="divider">OR</div>
-        <button
-          className="google-button"
-          onClick={handleGoogleSignIn}
-          disabled={loading}
-        >
-          {loading ? "Loading..." : "Sign in with Google"}
-        </button>
-      </div>
+      <h1 className="signin-title">Sign In to CalCoffeeChat</h1>
+
+      <button className="calnet-button" onClick={handleCalNetSignIn}>
+        <Shield className="icon" /> Sign in with CalNet
+      </button>
+
+      <button className="google-signin-button" onClick={handleGoogleSignIn} disabled={loading}>
+        Sign in with Google
+      </button>
     </div>
   );
-}
+};
 
 export default SignIn;

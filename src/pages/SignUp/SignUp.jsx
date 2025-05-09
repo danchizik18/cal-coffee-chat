@@ -1,80 +1,63 @@
 import React, { useState } from "react";
-import { auth } from "../../config/firebase"; // Firebase Auth
+import { auth, db } from "../../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { Input, Button, Space, Typography, message } from "antd";
 import { useNavigate } from "react-router-dom";
-import { db } from "../../config/firebase"; 
-import { collection, addDoc } from "firebase/firestore"; 
-
-const { Title } = Typography;
+import { message } from "antd";
+import { doc, setDoc } from "firebase/firestore";
+import "./SignUp.css";
+import { Shield } from "lucide-react";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-
-  // Function to sign up with email and password
   const handleSignUp = async () => {
     setLoading(true);
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth, 
-        email, 
-        password
-      );
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-      
+      await setDoc(doc(db, "cal-connection", user.uid), {
+        Email: email,
+        "First Name": firstName,
+        "Last Name": lastName,
+        Password: password,
+        Status: "Pending"
+      });
+
       message.success("Account created successfully!");
-      navigate("/form"); // Navigate to '/form' after successful sign-up
+      navigate("/form");
     } catch (error) {
-      let errorMessage = "An error occurred during sign up.";
-
-      switch (error.code) {
-        case "auth/email-already-in-use":
-          message.error("This email is already registered. Please use a different email.");
-          break;
-        case "auth/invalid-email":
-          message.error("Please enter a valid email address.");
-          break;
-        case "auth/weak-password":
-          message.error("Password should be at least 6 characters long.");
-          break;
-        default:
-          message.error(errorMessage);
-      }
+      message.error("An error occurred during sign up.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={{ width: "300px", margin: "0 auto", padding: "20px" }}>
-      <Title level={3} style={{ textAlign: "center" }}>
-        Sign Up
-      </Title>
+    <div className="signup-container">
+      <h1 className="signup-title">Join CalCoffeeChat</h1>
+      <p className="signup-subtitle">Tell us who you are to get started.</p>
 
-      <Space direction="vertical" style={{ width: "100%" }}>
-        <Input
-          placeholder="Email..."
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input.Password
-          placeholder="Password..."
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button 
-          type="primary" 
-          onClick={handleSignUp} // Call the correct function here
-          block 
-          loading={loading} // Show loading state on button while the request is processing
-        >
-          Sign Up
-        </Button>
-      </Space>
+      <div className="verification-notice">
+        <h3>Berkeley Verification Required</h3>
+        <p>To ensure authenticity, all users must verify their Berkeley affiliation through CalNet.</p>
+        <button className="calnet-button" onClick={() => navigate("/signin")}>Sign in with CalNet</button>
+        <p className="note">Note: CalNet integration coming soon. Please use email registration for now.</p>
+      </div>
+
+      <div className="divider">OR CONTINUE WITH EMAIL</div>
+
+      <input type="email" placeholder="Berkeley Email" value={email} onChange={(e) => setEmail(e.target.value)} className="input-field" />
+      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="input-field" />
+      <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="input-field" />
+      <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} className="input-field" />
+
+      <button className="signup-button" onClick={handleSignUp} disabled={loading}>Sign Up</button>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-// App.jsx
+// src/App.jsx
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
@@ -10,6 +10,7 @@ import Profile from './pages/Profile/Profile';
 import About from './pages/About/About';
 import HowItWorks from './pages/HowItWorks/HowItWorks';
 import Verification from './pages/Verification/Verification';
+import Match from './pages/Match/Match';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="/verification" element={<Verification />} />
+        <Route path="/match" element={<Match />} />
       </Routes>
     </>
   );

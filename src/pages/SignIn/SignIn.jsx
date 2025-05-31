@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { auth } from "../../config/firebase";
-import { GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
-import { Shield } from "lucide-react";
 
 const SignIn = () => {
   const [loading, setLoading] = useState(false);
@@ -23,17 +22,11 @@ const SignIn = () => {
     }
   };
 
-  const handleCalNetSignIn = () => {
-    signInWithRedirect(auth, new auth.SAMLAuthProvider("saml.calnet"));
-  };
 
   return (
     <div className="signin-container">
       <h1 className="signin-title">Sign In to CalCoffeeChat</h1>
 
-      <button className="calnet-button" onClick={handleCalNetSignIn}>
-        <Shield className="icon" /> Sign in with CalNet
-      </button>
 
       <button className="google-signin-button" onClick={handleGoogleSignIn} disabled={loading}>
         Sign in with Google

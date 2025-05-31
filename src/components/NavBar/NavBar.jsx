@@ -1,16 +1,28 @@
 // src/components/NavBar/NavBar.jsx
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../../config/firebase";
+import { auth, db, storage } from "../../config/firebase";
 import { signOut } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { getDownloadURL, ref } from "firebase/storage";
 import "./NavBar.css";
 
 const NavBar = () => {
     const [user, setUser] = useState(null);
+    const [profilePicUrl, setProfilePicUrl] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(setUser);
+        const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
+            setUser(currentUser);
+            if (currentUser) {
+                const docRef = doc(db, "cal-connection", currentUser.uid);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    setProfilePicUrl(docSnap.data().profilePicUrl || "");
+                }
+            }
+        });
         return () => unsubscribe();
     }, []);
 
@@ -28,7 +40,7 @@ const NavBar = () => {
             <h1 className="text-2xl font-bold">
                 <Link to="/">CalCoffeeChat</Link>
             </h1>
-            <div className="hidden md:flex gap-4">
+            <div className="hidden md:flex gap-4 items-center">
                 <Link to="/" className="hover:text-yellow-400 transition">Home</Link>
                 <Link to="/about" className="hover:text-yellow-400 transition">About</Link>
                 <Link to="/how-it-works" className="hover:text-yellow-400 transition">How It Works</Link>
@@ -42,6 +54,11 @@ const NavBar = () => {
                     <>
                         <Link to="/profile" className="hover:text-yellow-400 transition">Profile</Link>
                         <Link to="/match" className="hover:text-yellow-400 transition">Match</Link>
+                        {profilePicUrl ? (
+                            <img src={profilePicUrl} alt="Profile" className="w-8 h-8 rounded-full" />
+                        ) : (
+                            <div className="w-8 h-8 bg-gray-400 rounded-full"></div>
+                        )}
                         <button 
                             onClick={handleLogout} 
                             className="hover:text-red-400 transition">
@@ -49,37 +66,6 @@ const NavBar = () => {
                         </button>
                     </>
                 )}
-            </div>
-
-            {/* Mobile Menu */}
-            <div className="md:hidden flex items-center">
-                <div className="dropdown relative">
-                    <button className="text-white focus:outline-none">
-                        ☰
-                    </button>
-                    <div className="dropdown-menu absolute hidden bg-blue-700 text-white mt-2 rounded shadow-lg p-2 flex flex-col">
-                        <Link to="/" className="py-1 hover:bg-blue-800 rounded">Home</Link>
-                        <Link to="/about" className="py-1 hover:bg-blue-800 rounded">About</Link>
-                        <Link to="/how-it-works" className="py-1 hover:bg-blue-800 rounded">How It Works</Link>
-                        <Link to="/verification" className="py-1 hover:bg-blue-800 rounded">Verification</Link>
-                        {!user ? (
-                            <>
-                                <Link to="/signin" className="py-1 hover:bg-blue-800 rounded">Sign In</Link>
-                                <Link to="/signup" className="py-1 hover:bg-blue-800 rounded">Sign Up</Link>
-                            </>
-                        ) : (
-                            <>
-                                <Link to="/profile" className="py-1 hover:bg-blue-800 rounded">Profile</Link>
-                                <Link to="/match" className="py-1 hover:bg-blue-800 rounded">Match</Link>
-                                <button 
-                                    onClick={handleLogout} 
-                                    className="py-1 hover:bg-blue-800 rounded text-red-400">
-                                    Log Out
-                                </button>
-                            </>
-                        )}
-                    </div>
-                </div>
             </div>
         </nav>
     );

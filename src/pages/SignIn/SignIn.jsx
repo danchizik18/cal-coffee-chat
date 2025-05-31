@@ -1,10 +1,8 @@
-// SignIn.jsx
 import React, { useState } from "react";
 import { auth } from "../../config/firebase";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
-import "./SignIn.css";
 import { Shield } from "lucide-react";
 
 const SignIn = () => {
@@ -26,8 +24,7 @@ const SignIn = () => {
   };
 
   const handleCalNetSignIn = () => {
-    // Redirect to CalNet Sign-In (Will configure SAML in Firebase later)
-    message.info("CalNet Sign-In coming soon.");
+    signInWithRedirect(auth, new auth.SAMLAuthProvider("saml.calnet"));
   };
 
   return (

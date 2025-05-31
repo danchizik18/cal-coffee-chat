@@ -1,14 +1,14 @@
-// src/pages/Profile/Profile.jsx
 import React, { useEffect, useState } from "react";
-import { auth, db } from "../../config/firebase";
+import { auth, db, storage } from "../../config/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { Modal, Input, Button, message } from "antd";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { message } from "antd";
 import "./Profile.css";
 
 const Profile = () => {
     const [userData, setUserData] = useState(null);
-    const [editModalOpen, setEditModalOpen] = useState(false);
-    const [updatedData, setUpdatedData] = useState({});
+    const [profilePic, setProfilePic] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState("");
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -18,25 +18,45 @@ const Profile = () => {
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
                     setUserData(docSnap.data());
+                    setPreviewUrl(docSnap.data().profilePicUrl || "");
                 }
             }
         };
         fetchProfile();
     }, []);
 
-    const openEditModal = () => {
-        setUpdatedData({ ...userData });
-        setEditModalOpen(true);
+    const handleProfilePicUpload = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setProfilePic(file);
+            setPreviewUrl(URL.createObjectURL(file));
+        }
     };
 
     const handleSaveChanges = async () => {
         const user = auth.currentUser;
         if (user) {
             const docRef = doc(db, "cal-connection", user.uid);
-            await updateDoc(docRef, updatedData);
-            setUserData(updatedData);
-            setEditModalOpen(false);
-            message.success("Profile updated successfully!");
+
+            try {
+                let downloadUrl = previewUrl; // Default to the existing URL
+
+                if (profilePic) {
+                    const storageRef = ref(storage, `profilePics/${user.uid}/${Date.now()}_${profilePic.name}`);
+                    await uploadBytes(storageRef, profilePic);
+                    downloadUrl = await getDownloadURL(storageRef);
+                }
+
+                // Directly update Firestore with the download URL
+                await updateDoc(docRef, { profilePicUrl: downloadUrl });
+
+                setUserData({ ...userData, profilePicUrl: downloadUrl });
+                setPreviewUrl(downloadUrl);
+                message.success("Profile updated successfully!");
+            } catch (error) {
+                console.error("Error saving profile:", error);
+                message.error("Failed to save profile. Please try again.");
+            }
         }
     };
 
@@ -48,27 +68,28 @@ const Profile = () => {
                     <div className="profile-info">
                         <p><strong>Name:</strong> {userData.firstName} {userData.lastName}</p>
                         <p><strong>Email:</strong> {userData.email}</p>
-                        <p><strong>Role:</strong> {userData.role}</p>
-                        <p><strong>Major:</strong> {userData.major}</p>
-                        <p><strong>Company:</strong> {userData.company}</p>
-                        <p><strong>Job Title:</strong> {userData.jobTitle}</p>
-                        <p><strong>Graduation Year:</strong> {userData.gradYear}</p>
-                        <button className="mt-4 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-800" onClick={openEditModal}>Edit Profile</button>
+                        <div className="profile-pic-container mt-4">
+                            {previewUrl ? (
+                                <img 
+                                    src={previewUrl} 
+                                    alt="Profile" 
+                                    className="w-32 h-32 rounded-full object-cover" 
+                                />
+                            ) : (
+                                <p>No profile picture selected</p>
+                            )}
+                        </div>
+                        <input type="file" accept="image/*" onChange={handleProfilePicUpload} />
+                        <button 
+                            className="mt-4 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-800" 
+                            onClick={handleSaveChanges}
+                        >
+                            Save Profile
+                        </button>
                     </div>
                 ) : (
                     <p>Loading...</p>
                 )}
-
-                <Modal 
-                    title="Edit Profile" 
-                    visible={editModalOpen} 
-                    onOk={handleSaveChanges} 
-                    onCancel={() => setEditModalOpen(false)}
-                >
-                    <Input placeholder="Company" value={updatedData.company || ""} onChange={(e) => setUpdatedData({ ...updatedData, company: e.target.value })} />
-                    <Input placeholder="Job Title" value={updatedData.jobTitle || ""} onChange={(e) => setUpdatedData({ ...updatedData, jobTitle: e.target.value })} />
-                    <Input placeholder="Calendly Link" value={updatedData.calendlyLink || ""} onChange={(e) => setUpdatedData({ ...updatedData, calendlyLink: e.target.value })} />
-                </Modal>
             </div>
         </div>
     );

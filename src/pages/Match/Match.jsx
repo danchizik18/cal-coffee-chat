@@ -75,7 +75,10 @@ const Match = () => {
                             <p><strong>Company:</strong> {alum.company || "N/A"}</p>
                             <p><strong>Job Title:</strong> {alum.jobTitle || "N/A"}</p>
                             {alum.calendlyLink && (
-                                <a href={alum.calendlyLink} target="_blank" className="text-blue-600 hover:underline">Book a Meeting</a>
+                                <a href={alum.calendlyLink} target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">
+  Book a Meeting
+</a>
+
                             )}
                         </div>
                     ))

@@ -1,10 +1,9 @@
 // src/components/NavBar/NavBar.jsx
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, db, storage } from "../../config/firebase";
+import { auth, db } from "../../config/firebase";
 import { signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import { getDownloadURL, ref } from "firebase/storage";
 import "./NavBar.css";
 
 const NavBar = () => {
